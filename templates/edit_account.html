@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Editar Conta</title>
     <style>
         body {
             display: flex;
@@ -13,7 +13,7 @@
             background-color: #f0f2f5;
             font-family: Arial, sans-serif;
         }
-        .login-container {
+        .account-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -21,23 +21,23 @@
             width: 300px;
             text-align: center;
         }
-        .login-container h2 {
+        .account-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
-        .login-container label {
+        .account-container label {
             display: block;
             margin-bottom: 5px;
             color: #555;
         }
-        .login-container input {
+        .account-container input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .login-container button {
+        .account-container button {
             width: 100%;
             padding: 10px;
             background-color: #007bff;
@@ -47,20 +47,20 @@
             font-size: 16px;
             cursor: pointer;
         }
-        .login-container button:hover {
+        .account-container button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="POST" action="{{ url_for('login') }}">
+    <div class="account-container">
+        <h2>Editar Conta</h2>
+        <form method="POST" action="{{ url_for('edit_account', user_id=user.id) }}">
             <label for="username">Nome de Usuário:</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" value="{{ user.username }}" required>
             <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Entrar</button>
+            <input type="password" id="password" name="password" value="{{ user.password }}" required>
+            <button type="submit">Salvar</button>
         </form>
     </div>
 </body>

@@ -9,3 +9,4 @@ if __name__ == "__main__":
     imprimir_hora_atual()
 
 print("Script executado")
+print("Script executado")
