@@ -254,4 +254,3 @@ if __name__ == '__main__':
     thread = threading.Thread(target=agendar_tarefas, daemon=True)
     thread.start()
     app.run(debug=True, host='0.0.0.0', port=777)
-    subprocess.run(["pip", "install", "gunicorn"])
