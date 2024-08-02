@@ -214,6 +214,7 @@
         .run-button:hover {
             background-color: #c82333;
         }
+
     </style>
     <script>
         function showContent(contentId) {
@@ -227,6 +228,8 @@
     <div class="menu">
         <button onclick="showContent('tarefas')">Tarefas</button>
         <button onclick="showContent('scripts')">Scripts</button>
+        <!-- botão para ir para pagina relatorios -->
+        <button onclick="window.location.href='/relatorio'">Relatórios</button>
     </div>
     <div>
     <div id="tarefas" class="container content active">
@@ -245,7 +248,7 @@
                     <form action="/editar/{{ tarefa.nome }}" method="get" style="display:inline;">
                         <button type="submit" class="edit-button">Editar</button>
                     </form>
-                    <form action="/executar/{{ tarefa.caminho_script }}" method="post" style="display:inline;">
+                    <form action="/executar/{{ tarefa.caminho_script }}?nome={{ tarefa.nome }}" method="post" style="display:inline;">
                         <button type="submit" class="run-button">Rodar</button>
                     </form>
                 </div>

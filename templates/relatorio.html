@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Execução</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+        .filter-select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        a.button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <a href="{{ url_for('index') }}" class="button">Voltar</a>
+        </div>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Tarefa</th>
+                        <th onclick="sortTable(1)">Início</th>
+                        <th onclick="sortTable(2)">Fim</th>
+                        <th onclick="sortTable(3)">Saída</th>
+                        <th onclick="sortTable(4)">Modo</th>
+                    </tr>
+                    <tr>
+                        <th><select class="filter-select" onchange="filterTable(0)"></select></th>
+                        <th><select class="filter-select" onchange="filterTable(1)"></select></th>
+                        <th><select class="filter-select" onchange="filterTable(2)"></select></th>
+                        <th><select class="filter-select" onchange="filterTable(3)"></select></th>
+                        <th><select class="filter-select" onchange="filterTable(4)"></select></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log['Tarefa'] }}</td>
+                        <td>{{ log['Início'] }}</td>
+                        <td>{{ log['Fim'] }}</td>
+                        <td><pre>{{ log['Saída'] }}</pre></td>
+                        <td>{{ log['Modo'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            populateFilters();
+        });
+
+        function populateFilters() {
+            var table, tr, td, i, j, columnValues, select, option;
+            table = document.querySelector("table");
+            tr = table.getElementsByTagName("tr");
+
+            for (j = 0; j < 5; j++) {
+                columnValues = [];
+                for (i = 2; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[j];
+                    if (td) {
+                        var value = td.textContent || td.innerText;
+                        if (columnValues.indexOf(value) === -1) {
+                            columnValues.push(value);
+                        }
+                    }
+                }
+                select = document.getElementsByClassName("filter-select")[j];
+                option = document.createElement("option");
+                option.value = "";
+                option.text = "Todos";
+                select.appendChild(option);
+                columnValues.sort();
+                for (i = 0; i < columnValues.length; i++) {
+                    option = document.createElement("option");
+                    option.value = columnValues[i];
+                    option.text = columnValues[i];
+                    select.appendChild(option);
+                }
+            }
+        }
+
+        function filterTable(columnIndex) {
+            var select, filter, table, tr, td, i, txtValue;
+            select = document.getElementsByClassName("filter-select")[columnIndex];
+            filter = select.value.toUpperCase();
+            table = document.querySelector("table");
+            tr = table.getElementsByTagName("tr");
+            for (i = 2; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[columnIndex];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (filter === "" || txtValue.toUpperCase() === filter) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.querySelector("table");
+            switching = true;
+            dir = "asc"; 
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 2; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount ++; 
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

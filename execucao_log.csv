@@ -1,28 +1,164 @@
-Tarefa,Início,Fim,Saída
-teste2.py,2024-08-02 09:01:18.377498,2024-08-02 09:01:18.483475,"Hora atual: 2024-08-02 09:01:18
+Tarefa,Script,Início,Fim,Saída,Modo
+tretertre,Scripts\trerer.py,2024-08-02 13:54:40.489704,2024-08-02 13:54:40.616385,"ola mundo
+",Manual
+teste,Scripts\teste2.py,2024-08-02 13:54:51.392229,2024-08-02 13:54:51.515674,"Hora atual: 2024-08-02 13:54:51
 Script executado
 ",Manual
-teste2.py,2024-08-02 09:01:21.520705,2024-08-02 09:01:21.650529,"Hora atual: 2024-08-02 09:01:21
+teste,Scripts\teste2.py,2024-08-02 13:59:59.494460,2024-08-02 13:59:59.613002,"Hora atual: 2024-08-02 13:59:59
 Script executado
 ",Manual
-teste2.py,2024-08-02 09:20:56.741026,2024-08-02 09:20:56.840057,"Hora atual: 2024-08-02 09:20:56
+teste,Scripts\teste2.py,2024-08-02 14:03:06.640590,2024-08-02 14:03:06.750303,"Hora atual: 2024-08-02 14:03:06
 Script executado
 ",Agendado
-teste2.py,2024-08-02 09:21:39.663976,2024-08-02 09:21:39.766895,"Hora atual: 2024-08-02 09:21:39
+teste,Scripts\teste2.py,2024-08-02 14:04:06.806449,2024-08-02 14:04:06.969984,"Hora atual: 2024-08-02 14:04:06
 Script executado
 ",Agendado
-teste2.py,2024-08-02 09:21:56.874102,2024-08-02 09:21:56.972903,"Hora atual: 2024-08-02 09:21:56
+teste,Scripts\teste2.py,2024-08-02 14:05:07.029965,2024-08-02 14:05:07.150434,"Hora atual: 2024-08-02 14:05:07
 Script executado
 ",Agendado
-teste2.py,2024-08-02 09:22:39.808747,2024-08-02 09:22:39.907282,"Hora atual: 2024-08-02 09:22:39
+teste,Scripts\teste2.py,2024-08-02 14:06:07.216537,2024-08-02 14:06:07.347772,"Hora atual: 2024-08-02 14:06:07
 Script executado
 ",Agendado
-teste2.py,2024-08-02 09:22:57.020346,2024-08-02 09:22:57.177573,"Hora atual: 2024-08-02 09:22:57
+teste,Scripts\teste2.py,2024-08-02 14:07:07.395843,2024-08-02 14:07:07.513039,"Hora atual: 2024-08-02 14:07:07
 Script executado
 ",Agendado
-teste2.py,2024-08-02 09:23:39.935742,2024-08-02 09:23:40.036520,"Hora atual: 2024-08-02 09:23:40
+teste,Scripts\teste2.py,2024-08-02 14:08:07.549361,2024-08-02 14:08:07.661752,"Hora atual: 2024-08-02 14:08:07
 Script executado
 ",Agendado
-teste2.py,2024-08-02 09:23:57.243497,2024-08-02 09:23:57.339959,"Hora atual: 2024-08-02 09:23:57
+teste,Scripts\teste2.py,2024-08-02 14:09:07.722823,2024-08-02 14:09:07.833671,"Hora atual: 2024-08-02 14:09:07
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:10:07.892829,2024-08-02 14:10:08.033702,"Hora atual: 2024-08-02 14:10:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:11:08.097823,2024-08-02 14:11:08.215127,"Hora atual: 2024-08-02 14:11:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:12:08.271098,2024-08-02 14:12:08.379210,"Hora atual: 2024-08-02 14:12:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:13:08.421150,2024-08-02 14:13:08.525384,"Hora atual: 2024-08-02 14:13:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:14:08.565910,2024-08-02 14:14:08.673288,"Hora atual: 2024-08-02 14:14:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:15:08.721775,2024-08-02 14:15:08.842691,"Hora atual: 2024-08-02 14:15:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:16:08.889157,2024-08-02 14:16:09.003019,"Hora atual: 2024-08-02 14:16:08
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:17:09.054093,2024-08-02 14:17:09.157909,"Hora atual: 2024-08-02 14:17:09
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:18:09.230701,2024-08-02 14:18:09.345220,"Hora atual: 2024-08-02 14:18:09
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:19:09.389248,2024-08-02 14:19:09.491229,"Hora atual: 2024-08-02 14:19:09
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:20:09.539673,2024-08-02 14:20:09.645061,"Hora atual: 2024-08-02 14:20:09
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:21:09.711179,2024-08-02 14:21:09.813709,"Hora atual: 2024-08-02 14:21:09
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:22:09.864381,2024-08-02 14:22:10.004486,"Hora atual: 2024-08-02 14:22:09
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:23:10.064597,2024-08-02 14:23:10.169028,"Hora atual: 2024-08-02 14:23:10
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:24:10.227456,2024-08-02 14:24:10.327420,"Hora atual: 2024-08-02 14:24:10
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:25:10.394674,2024-08-02 14:25:10.501784,"Hora atual: 2024-08-02 14:25:10
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:26:10.560880,2024-08-02 14:26:10.667461,"Hora atual: 2024-08-02 14:26:10
+Script executado
+",Agendado
+tretertre,Scripts\trerer.py,2024-08-02 14:26:35.936691,2024-08-02 14:26:36.040207,"ola mundo
+",Manual
+teste,Scripts\teste2.py,2024-08-02 14:27:10.714165,2024-08-02 14:27:10.813985,"Hora atual: 2024-08-02 14:27:10
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:28:10.863643,2024-08-02 14:28:10.967020,"Hora atual: 2024-08-02 14:28:10
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:29:11.010924,2024-08-02 14:29:11.112726,"Hora atual: 2024-08-02 14:29:11
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:31:00.047659,2024-08-02 14:31:00.172681,"Hora atual: 2024-08-02 14:31:00
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:32:00.214086,2024-08-02 14:32:00.316395,"Hora atual: 2024-08-02 14:32:00
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 14:33:00.361740,2024-08-02 14:33:00.468004,"Hora atual: 2024-08-02 14:33:00
+Script executado
+",Agendado
+tretertre,Scripts\roleta.py,2024-08-02 14:34:15.863629,2024-08-02 14:34:15.981522,"  File ""D:\codigos\python\FlaskSchedule 1\FlaskSchedule\Scripts\roleta.py"", line 3
+    const { Client} = require('whatsapp-web.js').
+          ^
+SyntaxError: invalid syntax
+",Manual
+tretertre,Scripts\roleta.py,2024-08-02 14:34:44.900701,2024-08-02 14:34:45.010343,"  File ""D:\codigos\python\FlaskSchedule 1\FlaskSchedule\Scripts\roleta.py"", line 3
+    const {Client} = require('whatsapp-web.js').
+          ^
+SyntaxError: invalid syntax
+",Manual
+tretertre,Scripts\roleta.py,2024-08-02 14:34:46.881686,2024-08-02 14:34:46.992324,"  File ""D:\codigos\python\FlaskSchedule 1\FlaskSchedule\Scripts\roleta.py"", line 3
+    const {Client} = require('whatsapp-web.js').
+          ^
+SyntaxError: invalid syntax
+",Manual
+tretertre,Scripts\roleta.py,2024-08-02 14:35:25.901363,2024-08-02 14:35:26.014476,,Manual
+tretertre,Scripts\roleta.py,2024-08-02 14:36:28.663248,2024-08-02 14:36:28.781555,"Traceback (most recent call last):
+  File ""D:\codigos\python\FlaskSchedule 1\FlaskSchedule\Scripts\roleta.py"", line 4, in <module>
+    os.remove('arquivo_teste.txt')
+FileNotFoundError: [WinError 2] O sistema nÃ£o pode encontrar o arquivo especificado: 'arquivo_teste.txt'
+",Manual
+teste,Scripts\teste2.py,2024-08-02 16:30:14.377741,2024-08-02 16:30:14.493870,"Hora atual: 2024-08-02 16:30:14
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:32:14.897098,2024-08-02 16:32:15.006879,"Hora atual: 2024-08-02 16:32:15
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:33:15.066993,2024-08-02 16:33:15.168894,"Hora atual: 2024-08-02 16:33:15
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:34:15.238662,2024-08-02 16:34:15.343278,"Hora atual: 2024-08-02 16:34:15
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:35:15.406007,2024-08-02 16:35:15.508995,"Hora atual: 2024-08-02 16:35:15
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:36:15.550551,2024-08-02 16:36:15.654339,"Hora atual: 2024-08-02 16:36:15
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:38:28.552607,2024-08-02 16:38:28.662621,"Hora atual: 2024-08-02 16:38:28
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:39:28.743482,2024-08-02 16:39:28.843063,"Hora atual: 2024-08-02 16:39:28
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:40:28.910556,2024-08-02 16:40:29.008301,"Hora atual: 2024-08-02 16:40:29
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:41:29.057733,2024-08-02 16:41:29.165446,"Hora atual: 2024-08-02 16:41:29
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:42:29.237167,2024-08-02 16:42:29.364273,"Hora atual: 2024-08-02 16:42:29
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:43:29.418216,2024-08-02 16:43:29.522119,"Hora atual: 2024-08-02 16:43:29
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:44:29.593590,2024-08-02 16:44:29.712220,"Hora atual: 2024-08-02 16:44:29
+Script executado
+",Agendado
+teste,Scripts\teste2.py,2024-08-02 16:45:29.774253,2024-08-02 16:45:29.945259,"Hora atual: 2024-08-02 16:45:29
 Script executado
 ",Agendado

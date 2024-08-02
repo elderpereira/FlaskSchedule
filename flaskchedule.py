@@ -7,7 +7,14 @@ import csv
 import os
 import datetime
 
+# Lista de comandos perigosos
+COMANDOS_PERIGOSOS = [
+    'os.remove', 'shutil.rmtree', 'subprocess.run(["rm', 'subprocess.run(["del'
+]
+
 app = Flask(__name__)
+
+tarefas_agendadas = set()
 
 def carregar_tarefas():
     print("Carregando tarefas...")
@@ -23,8 +30,8 @@ def carregar_tarefas():
                     intervalo = int(intervalo)
                 else:
                     intervalo = 1  # Valor padrão caso intervalo não esteja presente
-                print(f"Agendando tarefa: {linha['caminho_script']} com intervalo: {intervalo}")
-                agendar_tarefa(linha['caminho_script'], linha['horario'], linha['frequencia'], intervalo)
+                print(f"Agendando tarefa: {linha['nome']} com intervalo: {intervalo}")
+                agendar_tarefa(linha['nome'], linha['caminho_script'], linha['horario'], linha['frequencia'], intervalo)
     return tarefas
 
 def salvar_tarefas(tarefas):
@@ -42,8 +49,8 @@ def salvar_tarefas(tarefas):
         for tarefa in tarefas:
             escritor.writerow(tarefa)
 
-def executar_script(caminho_script):
-    print(f"Executando o script: {caminho_script}")
+def executar_script(nome, caminho_script):
+    print(f"Executando o script: {nome}")
     try:
         # Construir o caminho completo do script
         caminho_completo_script = os.path.join('Scripts', caminho_script)
@@ -59,38 +66,43 @@ def executar_script(caminho_script):
             print(f"Erro ao executar o script: {result.stderr}")
             saida = result.stderr
         
-        registrar_log(caminho_script, inicio, fim, saida, "Agendado")
+        registrar_log(nome, caminho_completo_script, inicio, fim, saida, "Agendado")
         
     except subprocess.CalledProcessError as e:
         fim = datetime.datetime.now()
         saida = str(e)
-        registrar_log(caminho_script, inicio, fim, saida, "Agendado")
+        registrar_log(nome, caminho_completo_script, inicio, fim, saida, "Agendado")
         print(f"Erro ao executar o script: {e}")
 
-def agendar_tarefa(caminho_script, horario, frequencia, intervalo=1):
-    print(f"Iniciando agendando da tarefa: {caminho_script}")
-    print(f"Parâmetros recebidos - Horário: {horario}, Frequência: {frequencia}, Intervalo: {intervalo}")
+def agendar_tarefa(nome, caminho_script, horario, frequencia, intervalo=1):
+    if nome in tarefas_agendadas:
+        print(f"Tarefa {nome} já está agendada.")
+        return
+
+    print(f"Iniciando agendando da tarefa: {nome} - {caminho_script}")
+    print(f"Parâmetros recebidos - Nome: {nome}, Horário: {horario}, Frequência: {frequencia}, Intervalo: {intervalo}")
     try:
         print("Entrou no bloco try")
-        print(f"Agendando a tarefa: {caminho_script} - Frequência: {frequencia}")
+        print(f"Agendando a tarefa: {nome} - {caminho_script} - Frequência: {frequencia}")
         if frequencia == 'diaria':
             print(f"Entrou no if diaria")
-            print(f"Tarefa agendada: {caminho_script} - Hora de execução: {horario} - A cada: {intervalo} Dias")
-            schedule.every(intervalo).days.at(horario).do(executar_script, caminho_script=caminho_script)
+            print(f"Tarefa agendada: {nome} - {caminho_script} - Hora de execução: {horario} - A cada: {intervalo} Dias")
+            schedule.every(intervalo).days.at(horario).do(executar_script, nome=nome, caminho_script=caminho_script)
         elif frequencia == 'semanal':
             print(f"Entrou no elif semanal")
-            schedule.every(intervalo).weeks.at(horario).do(executar_script, caminho_script=caminho_script)
-            print(f"Tarefa agendada: {caminho_script} - Hora de execução: {horario} - A cada: {intervalo} Semanas")
+            schedule.every(intervalo).weeks.at(horario).do(executar_script, nome=nome, caminho_script=caminho_script)
+            print(f"Tarefa agendada: {nome} - {caminho_script} - Hora de execução: {horario} - A cada: {intervalo} Semanas")
         elif frequencia == 'horaria':
             print(f"Entrou no elif horaria")
-            schedule.every(intervalo).hours.do(executar_script, caminho_script=caminho_script)
-            print(f"Tarefa agendada: {caminho_script} - A cada: {intervalo} Horas")
+            schedule.every(intervalo).hours.do(executar_script, nome=nome, caminho_script=caminho_script)
+            print(f"Tarefa agendada: {nome} - {caminho_script} - A cada: {intervalo} Horas")
         elif frequencia == 'minutos':
             print(f"Entrou no elif minutos")
-            print(f"Tarefa agendada: {caminho_script} - A cada: {intervalo} Minutos")
-            schedule.every(intervalo).minutes.do(executar_script, caminho_script=caminho_script)
+            print(f"Tarefa agendada: {nome} - {caminho_script} - A cada: {intervalo} Minutos")
+            schedule.every(intervalo).minutes.do(executar_script, nome=nome, caminho_script=caminho_script)
         else:
             print("Nenhuma condição foi atendida")
+        tarefas_agendadas.add(nome)
     except ValueError as e:
         print(f"Erro ao agendar a tarefa: {e}")
         pass  # Ignora erros de agendamento aqui, pois já foram tratados na adição
@@ -101,8 +113,9 @@ def agendar_tarefas():
         print("Verificando.......")
         schedule.run_pending()
         time.sleep(10)
+        carregar_tarefas()
 
-def registrar_log(nome_tarefa, inicio, fim, saida, modo):
+def registrar_log(nome, nome_tarefa, inicio, fim, saida, modo):
     print(f"Registrando log da tarefa: {nome_tarefa}")
     log_file = 'execucao_log.csv'
     file_exists = os.path.isfile(log_file)
@@ -111,35 +124,39 @@ def registrar_log(nome_tarefa, inicio, fim, saida, modo):
         writer = csv.writer(f)
         if not file_exists:
             # Escrever cabeçalhos se o arquivo não existir
-            writer.writerow(['Tarefa', 'Início', 'Fim', 'Saída', 'Modo'])
+            writer.writerow(['Tarefa', 'Script', 'Início', 'Fim', 'Saída', 'Modo'])
         
-        writer.writerow([nome_tarefa, inicio, fim, saida, modo])
+        writer.writerow([nome, nome_tarefa, inicio, fim, saida, modo])
 
 
-@app.route('/executar/<nome_tarefa>', methods=['POST'])
-def executar_tarefa(nome_tarefa):
+@app.route('/executar/<caminho_script>', methods=['POST'])
+def executar_tarefa(caminho_script):
     try:
-        caminho_script = os.path.join('Scripts', nome_tarefa)
-        print(f"Tentando executar o script: {caminho_script}")
+        nome = request.args.get('nome')
+        
+        # Construir o caminho completo do script na pasta Scripts
+        caminho_completo_script = os.path.join('Scripts', caminho_script)
+        
+        print(f"Tentando executar o script: {caminho_completo_script}")
         
         inicio = datetime.datetime.now()
-        result = subprocess.run(["python", caminho_script], capture_output=True, text=True)
+        result = subprocess.run(["python", caminho_completo_script], capture_output=True, text=True)
         fim = datetime.datetime.now()
         
         if result.returncode == 0:
-            print(f"Script {caminho_script} executado com sucesso.")
+            print(f"Script {caminho_completo_script} executado com sucesso.")
             saida = result.stdout
         else:
             print(f"Erro ao executar o script: {result.stderr}")
             saida = result.stderr
         
-        registrar_log(nome_tarefa, inicio, fim, saida, "Manual")
+        registrar_log(nome, caminho_completo_script, inicio, fim, saida, "Manual")
         
         return redirect(url_for('index'))
     except subprocess.CalledProcessError as e:
         fim = datetime.datetime.now()
         saida = str(e)
-        registrar_log(nome_tarefa, inicio, fim, saida, "Manual")
+        registrar_log(nome, caminho_completo_script, inicio, fim, saida, "Manual")
         print(f"Erro ao executar o script: {e}")
         return redirect(url_for('index'))
 
@@ -240,6 +257,23 @@ def editar_script(nome_script):
     
     return render_template('editar_script.html', nome_script=nome_script, conteudo_script=conteudo_script)
 
+@app.route('/relatorio')
+def relatorio():
+    print("Gerando relatório...")
+    caminho_logs = ('execucao_log.csv')  # Ajuste o caminho para o arquivo de logs
+
+    logs = []
+    if os.path.exists(caminho_logs):
+        with open(caminho_logs, newline='', encoding='utf-8') as csvfile:
+            print("Arquivo de logs encontrado")
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                logs.append(row)
+    else:
+        logs.append({"Tarefa": "Nenhum log encontrado", "Início": "", "Fim": "", "Saída": "", "Modo": ""})
+
+    return render_template('relatorio.html', logs=logs)
+
 @app.route('/excluir_script/<nome_script>', methods=['POST'])
 def excluir_script(nome_script):
     caminho_script = os.path.join('Scripts', f'{nome_script}')
@@ -253,4 +287,5 @@ if __name__ == '__main__':
     tarefas = carregar_tarefas()
     thread = threading.Thread(target=agendar_tarefas, daemon=True)
     thread.start()
+    debug = False
     app.run(debug=True, host='0.0.0.0', port=777)
