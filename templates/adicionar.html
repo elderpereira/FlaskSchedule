@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Tarefa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        input[type="submit"] {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        input[type="submit"]:hover {
+            background: #218838;
+        }
+        
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        a.button:hover {
+            background-color: #0056b3;
+        }
+
+        .intervalo-input {
+            width: 50px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adicionar Nova Tarefa</h1>
+    <form method="POST">
+        Nome: <input type="text" name="nome" required><br>
+        
+        Caminho do Script: 
+        <select name="caminho_script" required>
+            {% for arquivo in arquivos_scripts %}
+            <option value="{{ arquivo }}">{{ arquivo }}</option>
+            {% endfor %}
+        </select><br>
+        
+        Horário: <input type="time" name="horario" required><br>
+        
+        Frequência: 
+        <select name="frequencia" required>
+            <option value="diaria">Diária</option>
+            <option value="semanal">Semanal</option>
+            <option value="horaria">Horária</option>
+            <option value="minutos">Minutária</option>
+        </select><br>
+        
+        Intervalo entre execuções: <input type="number" name="intervalo" class="intervalo-input" required><br>
+        
+        <input type="submit" value="Adicionar">
+        <a href="/" class="button">Voltar</a>
+    </form>
+</body>
+</html>

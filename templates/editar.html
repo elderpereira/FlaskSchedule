@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Tarefa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        input[type="submit"] {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        input[type="submit"]:hover {
+            background: #218838;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .confirm-dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .confirm-dialog button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        a.button:hover {
+            background-color: #0056b3;
+        }
+
+        .confirm-dialog .confirm-yes {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .confirm-dialog .confirm-no {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .intervalo-input {
+            width: 50px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+        <form action="{{ url_for('editar', nome=tarefa.nome) }}" method="post">
+            <select name="caminho_script" id="caminho_script" required>
+                {% for arquivo in arquivos_scripts %}
+                <option value="{{ arquivo }}" {% if tarefa.caminho_script == arquivo %}selected{% endif %}>{{ arquivo }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="horario">Horário:</label>
+            <input type="time" name="horario" id="horario" value="{{ tarefa.horario }}" required><br>
+            <label for="frequencia">Frequência:</label>
+            <select name="frequencia" id="frequencia" required>
+                <option value="diaria" {% if tarefa.frequencia == 'diaria' %}selected{% endif %}>Diária</option>
+                <option value="semanal" {% if tarefa.frequencia == 'semanal' %}selected{% endif %}>Semanal</option>
+                <option value="horaria" {% if tarefa.frequencia == 'horaria' %}selected{% endif %}>Horária</option>
+                <option value="minutos" {% if tarefa.frequencia == 'minutos' %}selected{% endif %}>Minutária</option>
+            </select><br>
+            <label for="intervalo">Intervalo entre execuções: </label>
+            <input type="number" name="intervalo" class="intervalo-input" id="intervalo" value="{{ tarefa.intervalo }}" required><br>
+            <input type="submit" value="Salvar">
+            <a href="/" class="button">Voltar</a>
+        </form>
+        
+        <form id="delete-form" action="{{ url_for('excluir', nome=tarefa.nome) }}" method="post">
+            <input type="button" value="Excluir" class="delete-button" onclick="confirmDelete()">
+        </form>
+    </div>
+
+    <div id="confirm-dialog" class="confirm-dialog">
+        <p>Tem certeza que deseja excluir esta tarefa?</p>
+        <button class="confirm-yes" onclick="submitDelete()">Sim</button>
+        <button class="confirm-no" onclick="closeConfirm()">Cancelar</button>
+    </div>
+
+    <script>
+        function confirmDelete() {
+            document.getElementById('confirm-dialog').style.display = 'block';
+        }
+
+        function closeConfirm() {
+            document.getElementById('confirm-dialog').style.display = 'none';
+        }
+
+        function submitDelete() {
+            document.getElementById('delete-form').submit();
+        }
+    </script>
+</body>
+</html>

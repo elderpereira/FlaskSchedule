@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        input[type="submit"], button, a.button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover, button:hover, a.button:hover {
+            background-color: #0056b3;
+        }
+
+        button.delete-button {
+            background-color: #dc3545;
+        }
+
+        button.delete-button:hover {
+            background-color: #c82333;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        a.button:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Script: {{ nome_script }}</h1>
+        <form method="POST">
+            <label for="conteudo_script">Conteúdo do Script:</label>
+            <textarea id="conteudo_script" name="conteudo_script" rows="30" cols="100" required>{{ conteudo_script }}</textarea>
+            <br>
+            <div class="button-container">
+                <input type="submit" value="Salvar Alterações">
+            </div>
+        </form>
+        <br>
+        <form action="/excluir_script/{{ nome_script }}" method="post" style="display:inline;">
+            <button type="submit" class="delete-button" onclick="return confirm('Tem certeza que deseja excluir este script?');">Excluir</button>
+        </form>
+        <br>
+        <div class="button-container">
+            <a href="/" class="button">Voltar</a>
+        </div>
+    </div>
+    
+</body>
+</html>

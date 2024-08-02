@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Scripts e Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .menu {
+            width: 100%;
+            background-color: #007BFF;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu button {
+            background-color: #fff;
+            color: #007BFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .menu button:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            height: 300px;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        input[type="submit"], a.button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover, a.button:hover {
+            background-color: #0056b3;
+        }
+
+        a.button {
+            background-color: #6c757d;
+        }
+
+        a.button:hover {
+            background-color: #5a6268;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        /* Container principal */
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        /* Títulos */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Botões */
+        .button, .edit-button, .run-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .button:hover, .edit-button:hover, .run-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Listas */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Formulários inline */
+        form {
+            display: inline;
+            /* espaço abaixo de acada item*/
+            margin-bottom: 2px;
+        }
+        /* Botão de editar */
+        .edit-button {
+            padding: 10px 20px;
+            background-color: #28a745; /* Verde */
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px; /* Espaçamento entre os botões */
+        }
+
+        .edit-button:hover {
+            background-color: #218838;
+        }
+
+        /* Botão de rodar */
+        .run-button {
+            padding: 10px 20px;
+            background-color: #dc3545; /* Vermelho */
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .run-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <script>
+        function showContent(contentId) {
+            document.getElementById('tarefas').classList.remove('active');
+            document.getElementById('scripts').classList.remove('active');
+            document.getElementById(contentId).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <div class="menu">
+        <button onclick="showContent('tarefas')">Tarefas</button>
+        <button onclick="showContent('scripts')">Scripts</button>
+    </div>
+    <div>
+    <div id="tarefas" class="container content active">
+        <h1>Tarefas Agendadas</h1>
+        <a href="/adicionar" class="button">Adicionar Nova Tarefa</a>
+        
+        <ul>
+            {% for tarefa in tarefas %}
+            <li>
+                <div>
+                    <strong>{{ tarefa.nome }}</strong><br>
+                    Frequência: {{ tarefa.frequencia }}<br>
+                    Horário: {{ tarefa.horario }}
+                </div>
+                <div>
+                    <form action="/editar/{{ tarefa.nome }}" method="get" style="display:inline;">
+                        <button type="submit" class="edit-button">Editar</button>
+                    </form>
+                    <form action="/executar/{{ tarefa.caminho_script }}" method="post" style="display:inline;">
+                        <button type="submit" class="run-button">Rodar</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+        <div id="scripts" class="container content">
+            <h1>Scripts Disponíveis</h1>
+            <a href="{{ url_for('criar_script') }}" class="button">Criar Novo Script</a>
+            <ul>
+                {% for arquivo in arquivos_scripts %}
+                <li>
+                    {{ arquivo }}
+                    <form action="/editar_script/{{ arquivo }}" method="get" style="display:inline;">
+                        <button type="submit" class="edit-button">Editar</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

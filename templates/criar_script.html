@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        input[type="submit"], a.button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover, a.button:hover {
+            background-color: #0056b3;
+        }
+
+        a.button {
+            background-color: #6c757d;
+        }
+
+        a.button:hover {
+            background-color: #5a6268;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Criar Novo Script</h1>
+        <form method="POST">
+            <label for="nome_script">Nome do Script:</label>
+            <input type="text" id="nome_script" name="nome_script" required>
+            <br>
+            <label for="conteudo_script">Conteúdo do Script:</label>
+            <textarea id="conteudo_script" name="conteudo_script" rows="10" cols="50" required></textarea>
+            <br>
+            <div class="button-container">
+                <input type="submit" value="Criar Script">
+                <a href="{{ url_for('index') }}" class="button">Voltar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
